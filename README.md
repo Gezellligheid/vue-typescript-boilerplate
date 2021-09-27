@@ -1,11 +1,54 @@
-# Vue 3 + Typescript + Vite
+# Vue, Typescript boilerplate
 
-This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+This is a boilerplate code that (will) include the following features/examples
 
-## Recommended IDE Setup
+- Vue
+- Tailwind
+- Vuex
+- vue-router
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+## Routing (soon...)
 
-## Type Support For `.vue` Imports in TS
+## Vuex (what most of you will be interessed in)
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
+This guide will simply explain how to setup Vuex and how it works.
+
+1. Please take a look at the filestructure under the `/store` directory.
+
+2. Initiate your Store in the index.ts and import all modules you have created there.
+
+3. in main.ts, start the store by using the following code:
+
+```Typescript
+import store from './store'
+
+// Initiate app here
+
+app.use(store)
+
+// Mount the app here
+```
+
+4. First we will initiate the module with the following object
+
+```Typescript
+export default {
+	state: null,
+	mutations: {},
+	actions: {},
+	getters: {},
+}
+```
+
+5. In each module, we will create enums to define the different mutations, getters and actions. This is because we don't want any typo's. Don't forget to export them so they are available to other files.
+
+6. Check out the `NumberModule.ts` to see what we do with the functions and enums.
+
+7. To get the storedata in a component, use the `computed()` function [Example]("./src/components/HellowWorld.vue)
+
+8. Use the `store.commit()` function together with the `MutationTypes` as an argument to change the state
+
+9. To use the getters, use `store.getters[]` together with the `GetterTypes` as the selector.
+
+⚠️Please check the files to see the code in depth ⚠️
+(simply explained and simple examples)

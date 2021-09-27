@@ -1,52 +1,79 @@
-<script setup lang="ts">
-import { ref } from 'vue'
+<script lang="ts">
+import { computed, defineComponent, reactive, ref } from "vue";
+import { useStore } from "vuex";
+import {
+  NumberGetterTypes,
+  NumberMutationTypes
+} from "../store/modules/numbersModule";
 
-defineProps<{ msg: string }>()
+export default defineComponent({
+  props: {
+    msg: {
+      type: String
+    }
+  },
+  setup() {
+    // Getting the store
+    // Getting the state
+    // Computed() will make sure the data is reactive.
+    const store = useStore();
+    const count = computed(() => store.state.numbersModule);
+    const isZero = computed(() => store.getters[NumberGetterTypes.IS_ZERO]);
 
-const count = ref(0)
+    // Mutation functions
+    const increaseNumber = () => {
+      store.commit(NumberMutationTypes.INCREASE_NUMBER);
+    };
+
+    const decreaseNumber = () => {
+      store.commit(NumberMutationTypes.DECREASE_NUMBER);
+    };
+
+    const setNumber = (number: number) => {
+      store.commit(NumberMutationTypes.SET_NUMBER, number);
+    };
+
+    return { count, increaseNumber, decreaseNumber, setNumber, isZero };
+  }
+});
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
+  <div class="min-h-screen bg-green-300 p-8">
+    <h1 class="font-bold text-4xl mb-12">Vue3 Typescript Boilerplate</h1>
 
-  <p>
-    Recommended IDE setup:
-    <a href="https://code.visualstudio.com/" target="_blank">VSCode</a>
-    +
-    <a href="https://github.com/johnsoncodehk/volar" target="_blank">Volar</a>
-  </p>
+    <h1 class="font-bold text-4xl">Vuex example</h1>
 
-  <p>See <code>README.md</code> for more information.</p>
+    <h1 class="font-medium text-4xl mb-4">count: {{ count.count }}</h1>
+    <div class="flex space-x-4">
+      <button
+        class="bg-white px-2 py-1 rounded-md shadow-sm"
+        @click="increaseNumber"
+      >
+        Increase
+      </button>
+      <button
+        class="bg-white px-2 py-1 rounded-md shadow-sm"
+        @click="decreaseNumber"
+      >
+        Decrease
+      </button>
+      <button
+        class="bg-white px-2 py-1 rounded-md shadow-sm"
+        @click="setNumber(10)"
+      >
+        Set to 10
+      </button>
+    </div>
+    <div class="flex space-x-4 mt-8">
+      <h2 class="font-medium">IsZero?</h2>
 
-  <p>
-    <a href="https://vitejs.dev/guide/features.html" target="_blank">
-      Vite Docs
-    </a>
-    |
-    <a href="https://v3.vuejs.org/" target="_blank">Vue 3 Docs</a>
-  </p>
-
-  <button type="button" @click="count++">count is: {{ count }}</button>
-  <p>
-    Edit
-    <code>components/HelloWorld.vue</code> to test hot module replacement.
-  </p>
+      <!-- Change the color if a method/state is true/false -->
+      <span
+        class="py-1 px-3 rounded-md bg-opacity-40"
+        :class="{ 'bg-red-500': !isZero, 'bg-blue-500': isZero }"
+        >{{ isZero }}</span
+      >
+    </div>
+  </div>
 </template>
-
-<style scoped>
-a {
-  color: #42b983;
-}
-
-label {
-  margin: 0 0.5em;
-  font-weight: bold;
-}
-
-code {
-  background-color: #eee;
-  padding: 2px 4px;
-  border-radius: 4px;
-  color: #304455;
-}
-</style>
