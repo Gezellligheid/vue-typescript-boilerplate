@@ -50,6 +50,6 @@ export default {
 
 9. To use the getters, use `store.getters[]` together with the `GetterTypes` as the selector.
 
-# ⚠️Please check the files to see the code in depth ⚠️
+## ⚠️Please check the files to see the code in depth ⚠️
 
 (simply explained and simple examples)
