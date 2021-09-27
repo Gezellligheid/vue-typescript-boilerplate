@@ -44,7 +44,7 @@ export default {
 
 6. Check out the `NumberModule.ts` to see what we do with the functions and enums.
 
-7. To get the storedata in a component, use the `computed()` function [Example]("./src/components/HellowWorld.vue)
+7. To get the storedata in a component, use the `computed()` function [Example](/src/components/HellowWorld.vue)
 
 8. Use the `store.commit()` function together with the `MutationTypes` as an argument to change the state
 
